@@ -143,7 +143,6 @@ if [ "$RUN_ONLY_INTEGRATION_TESTS" = 'no' ]; then
 	if [ "$RFLINT_STATUS" != 'skip' ]; then
 		rflint \
 			--error=all \
-			--ignore TooFewTestSteps \
 			--ignore TooManyTestSteps \
 			--ignore TooFewKeywordSteps \
 			--ignore TooManyTestCases \
