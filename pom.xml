@@ -200,12 +200,6 @@
 			<version>${commons-dbcp.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>${mysql.version}</version>
-			<scope>runtime</scope>
-		</dependency>
 		
 		<!-- For running database migration during application's startup time -->
 		<dependency>
@@ -260,6 +254,13 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>selectize.js</artifactId>
 			<version>${selectizejs.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgresql.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		
@@ -492,11 +493,13 @@
 		
 		<minify.plugin.version>1.7.6</minify.plugin.version>
 		
-		<!-- Redefine default value from spring-boot-dependencies (https://github.com/spring-projects/spring-boot/blob/v1.4.6.RELEASE/spring-boot-dependencies/pom.xml) -->
-		<mysql.version>5.1.41</mysql.version>
-		
 		<native2ascii.plugin.version>1.0-beta-1</native2ascii.plugin.version>
+		
 		<pmd.plugin.version>3.8</pmd.plugin.version>
+		
+		<!-- Redefine default value from spring-boot-dependencies (https://github.com/spring-projects/spring-boot/blob/v1.4.6.RELEASE/spring-boot-dependencies/pom.xml) -->
+		<!-- The Travis CI build environments use version 9.1 by default -->
+		<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
 		<resources.plugin.version>3.0.2</resources.plugin.version>
 		<robotframework-plugin.version>1.4.7</robotframework-plugin.version>
 		<robotframework-selenium.version>1.4.0.8</robotframework-selenium.version>
