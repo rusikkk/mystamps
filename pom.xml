@@ -775,6 +775,7 @@
 				<artifactId>maven-pmd-plugin</artifactId>
 				<version>${pmd.plugin.version}</version>
 				<configuration>
+					<includeTests>true</includeTests>
 					<linkXRef>false</linkXRef>
 					<verbose>true</verbose>
 					<targetJdk>${java.version}</targetJdk>
