@@ -40,6 +40,7 @@ import static ru.mystamps.web.validation.ValidationRules.PASSWORD_MIN_LENGTH;
 import static ru.mystamps.web.validation.ValidationRules.PASSWORD_MAX_LENGTH;
 import static ru.mystamps.web.validation.ValidationRules.ACT_KEY_LENGTH;
 
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.TooManyMethods"})
 public class WhenAnonymousUserActivateAccount
 	extends WhenAnyUserAtAnyPageWithForm<ActivateAccountPage> {
 	

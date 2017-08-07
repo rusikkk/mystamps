@@ -25,6 +25,8 @@ import java.text.MessageFormat;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import org.apache.commons.lang3.StringUtils;
+
 public final class TranslationUtils {
 	
 	private static final String [] PROPERTIES_FILE_NAMES = new String[] {
@@ -53,26 +55,25 @@ public final class TranslationUtils {
 				TranslationUtils.class.getClassLoader().getResource(filename).toURI()
 			);
 		} catch (URISyntaxException ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex); // NOPMD: AvoidThrowingRawExceptionTypes
 		}
 		try (FileInputStream stream = new FileInputStream(file)) {
 			return new PropertyResourceBundle(stream);
 		
 		} catch (IOException ex) {
-			throw new RuntimeException(ex);
+			throw new RuntimeException(ex); // NOPMD: AvoidThrowingRawExceptionTypes
 		}
 	}
 	
+	@SuppressWarnings("PMD.ShortMethodName")
 	public static String tr(String key) {
-		String msg = "";
-		
 		for (ResourceBundle bundle : BUNDLES) {
 			if (bundle.containsKey(key)) {
 				return bundle.getString(key);
 			}
 		}
 		
-		return msg;
+		return StringUtils.EMPTY;
 	}
 	
 	// TODO: add simple unit tests (#93)
@@ -80,6 +81,7 @@ public final class TranslationUtils {
 		return msg.replaceAll("\\<.*?>", "");
 	}
 	
+	@SuppressWarnings("PMD.ShortMethodName")
 	public static String tr(String key, Object... args) {
 		// TODO: replace this hack to something less ugly
 		String messageFormat = tr(key).replaceAll("\\{[^\\}]+\\}", "{0}");

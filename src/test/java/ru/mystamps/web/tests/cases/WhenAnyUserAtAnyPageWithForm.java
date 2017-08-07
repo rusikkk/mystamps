@@ -26,7 +26,7 @@ import static ru.mystamps.web.tests.TranslationUtils.tr;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-@SuppressWarnings("checkstyle:abstractclassname")
+@SuppressWarnings({"checkstyle:abstractclassname", "PMD.AbstractNaming"})
 abstract class WhenAnyUserAtAnyPageWithForm<T extends AbstractPageWithForm>
 	extends WhenAnyUserAtAnyPage<T> {
 	
@@ -82,6 +82,7 @@ abstract class WhenAnyUserAtAnyPageWithForm<T extends AbstractPageWithForm>
 		}
 	}
 	
+	@SuppressWarnings("PMD.SystemPrintln")
 	private void fieldsValuesShouldBePreservedWhenErrorOccurs() {
 		for (Field field : page.getForm().getFields()) {
 			if (!field.hasInvalidValue()) {

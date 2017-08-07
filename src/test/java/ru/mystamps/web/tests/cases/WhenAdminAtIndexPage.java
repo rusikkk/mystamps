@@ -29,6 +29,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
 
 import static ru.mystamps.web.tests.TranslationUtils.tr;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class WhenAdminAtIndexPage extends WhenAnyUserAtAnyPage<IndexSitePage> {
 	
 	@Value("${valid_admin_login}")

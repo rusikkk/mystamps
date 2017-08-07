@@ -39,6 +39,7 @@ import static org.fest.assertions.api.Assertions.assertThat;
  * The main difference between this test and {@link WhenUserAddSeries} is that as admin we have
  * additional field for comment.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class WhenAdminAddSeries extends WhenAnyUserAtAnyPageWithForm<AddSeriesPage> {
 	
 	private static final String SAMPLE_IMAGE_NAME = "test/test.png";
@@ -51,7 +52,7 @@ public class WhenAdminAddSeries extends WhenAnyUserAtAnyPageWithForm<AddSeriesPa
 			).getAbsolutePath();
 			
 		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(e); // NOPMD: AvoidThrowingRawExceptionTypes
 		}
 	}
 	

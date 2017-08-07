@@ -33,7 +33,7 @@ import ru.mystamps.web.tests.page.AbstractPage;
 	initializers = ConfigFileApplicationContextInitializer.class,
 	classes = TestContext.class
 )
-@SuppressWarnings("checkstyle:abstractclassname")
+@SuppressWarnings({"checkstyle:abstractclassname", "PMD.AbstractNaming"})
 abstract class WhenAnyUserAtAnyPage<T extends AbstractPage>
 	extends AbstractTestNGSpringContextTests {
 	

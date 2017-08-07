@@ -48,12 +48,14 @@ import org.testng.annotations.Test;
 import ru.mystamps.web.Url;
 import ru.mystamps.web.tests.page.RegisterAccountPage;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class WhenAnonymousUserRegisterAccount
 	extends WhenAnyUserAtAnyPageWithForm<RegisterAccountPage> {
 	
 	private static final Pattern ACTIVATION_LINK_REGEXP =
 		Pattern.compile(".*/account/activate\\?key=[0-9a-z]{10}.*", Pattern.DOTALL);
 	
+	@SuppressWarnings("PMD.LongVariable")
 	private static final int MAX_TIME_TO_WAIT_EMAIL_IN_SECONDS = 15;
 	
 	@Value("${spring.mail.host}")
@@ -157,20 +159,19 @@ public class WhenAnonymousUserRegisterAccount
 		boolean activationMailFound = false;
 		for (WiserMessage message : messages) {
 			String subject = message.getMimeMessage().getSubject();
-			if (!subjectOfActivationMail.equals(subject)) {
-				continue;
+			if (subjectOfActivationMail.equals(subject)) {
+				
+				activationMailFound = true;
+				
+				Object body = message.getMimeMessage().getContent();
+				assertThat(body).isInstanceOf(String.class);
+				
+				String text = (String)body;
+				assertThat(text)
+					.overridingErrorMessage("Message doesn't contain link with activation key")
+					.matches(ACTIVATION_LINK_REGEXP);
+				break;
 			}
-			
-			activationMailFound = true;
-			
-			Object body = message.getMimeMessage().getContent();
-			assertThat(body).isInstanceOf(String.class);
-			
-			String text = (String)body;
-			assertThat(text)
-				.overridingErrorMessage("Message doesn't contain link with activation key")
-				.matches(ACTIVATION_LINK_REGEXP);
-			break;
 		}
 		
 		assertThat(activationMailFound)

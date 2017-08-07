@@ -62,6 +62,7 @@ public class ActivateAccountPage extends AbstractPageWithForm {
 		);
 	}
 	
+	@SuppressWarnings("PMD.UseObjectForClearerAPI")
 	public void activateAccount(
 			String login,
 			String name,

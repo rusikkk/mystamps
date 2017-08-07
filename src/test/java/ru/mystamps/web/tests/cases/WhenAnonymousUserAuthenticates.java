@@ -28,6 +28,7 @@ import ru.mystamps.web.tests.page.AuthAccountPage;
 
 import static ru.mystamps.web.tests.TranslationUtils.tr;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class WhenAnonymousUserAuthenticates extends WhenAnyUserAtAnyPageWithForm<AuthAccountPage> {
 	
 	@Value("${valid_user_login}")

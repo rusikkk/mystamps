@@ -50,6 +50,7 @@ public class AddSeriesPage extends AbstractPageWithForm {
 		+ "/*[contains(@class, \"selectize-dropdown-content\")]"
 		+ "/*[contains(@class, \"option\")]";
 	
+	@SuppressWarnings("PMD.LongVariable")
 	private static final String COUNTRY_BY_NAME_OPTION_LOCATOR_FMT =
 		"//*[contains(@class, \"selectize-control\")]"
 		+ "/*[contains(@class, \"selectize-dropdown\")]"

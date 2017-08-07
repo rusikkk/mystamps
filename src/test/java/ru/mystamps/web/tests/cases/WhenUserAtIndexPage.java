@@ -29,6 +29,7 @@ import ru.mystamps.web.tests.page.IndexSitePage;
 
 import static ru.mystamps.web.tests.TranslationUtils.tr;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class WhenUserAtIndexPage extends WhenAnyUserAtAnyPage<IndexSitePage> {
 	
 	@Value("${valid_user_login}")

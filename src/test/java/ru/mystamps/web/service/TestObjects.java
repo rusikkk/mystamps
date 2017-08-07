@@ -24,20 +24,20 @@ import java.util.Date;
 // CheckStyle: ignore AvoidStarImportCheck for next 1 line
 import ru.mystamps.web.dao.dto.*;
 
+@SuppressWarnings("PMD.TooManyMethods")
 final class TestObjects {
 	public static final String TEST_ACTIVITY_TYPE    = "EventType";
 	public static final String TEST_ACTIVITY_PAGE    = "http://example.org/some/page";
 	public static final String TEST_ACTIVITY_METHOD  = "GET";
 	public static final String TEST_ACTIVITY_LOGIN   = "zebra";
-	public static final String TEST_ACTIVITY_IP      = "127.0.0.1";
+	public static final String TEST_ACTIVITY_IP      = "127.0.0.1"; // NOPMD: AvoidUsingHardCodedIP
 	public static final String TEST_ACTIVITY_REFERER = "http://example.org/referer";
 	public static final String TEST_ACTIVITY_AGENT   = "Some browser";
 	
 	public static final Integer TEST_USER_ID        = 777;
 	public static final String TEST_EMAIL           = "test@example.org";
 	public static final String TEST_ACTIVATION_KEY  = "1234567890";
-	
-	protected static final String TEST_PASSWORD     = "secret";
+	public static final String TEST_PASSWORD        = "secret";
 	
 	private static final String TEST_NAME           = "Test Name";
 	private static final String TEST_LOGIN          = "test";
@@ -56,12 +56,7 @@ final class TestObjects {
 	}
 	
 	public static UsersActivationFullDto createUsersActivationFullDto() {
-		UsersActivationFullDto activation = new UsersActivationFullDto(
-			TEST_ACTIVATION_KEY,
-			TEST_EMAIL,
-			new Date()
-		);
-		return activation;
+		return new UsersActivationFullDto(TEST_ACTIVATION_KEY, TEST_EMAIL, new Date());
 	}
 	
 	public static UsersActivationDto createUsersActivationDto() {
@@ -86,7 +81,8 @@ final class TestObjects {
 	}
 	
 	public static UserDetails createUserDetails() {
-		final Integer anyId = 777;
+		// CheckStyle: ignore MagicNumber for next 1 line
+		Integer anyId = 777;
 		String collectionSlug = TEST_LOGIN;
 		
 		return new UserDetails(

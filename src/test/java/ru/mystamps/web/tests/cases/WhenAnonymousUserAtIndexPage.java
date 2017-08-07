@@ -26,6 +26,7 @@ import ru.mystamps.web.tests.page.IndexSitePage;
 
 import static ru.mystamps.web.tests.TranslationUtils.tr;
 
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class WhenAnonymousUserAtIndexPage extends WhenAnyUserAtAnyPage<IndexSitePage> {
 	
 	public WhenAnonymousUserAtIndexPage() {

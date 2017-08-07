@@ -44,6 +44,7 @@ import static ru.mystamps.web.tests.TranslationUtils.tr;
 import static ru.mystamps.web.validation.ValidationRules.MAX_STAMPS_IN_SERIES;
 import static ru.mystamps.web.validation.ValidationRules.MIN_STAMPS_IN_SERIES;
 
+@SuppressWarnings({"PMD.AvoidDuplicateLiterals", "PMD.TooManyMethods"})
 public class WhenUserAddSeries extends WhenAnyUserAtAnyPageWithForm<AddSeriesPage> {
 	
 	private static final int SINCE_YEAR     = 1840;
@@ -74,7 +75,7 @@ public class WhenUserAddSeries extends WhenAnyUserAtAnyPageWithForm<AddSeriesPag
 			).getAbsolutePath();
 		
 		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException(e); // NOPMD: AvoidThrowingRawExceptionTypes
 		}
 	}
 	
