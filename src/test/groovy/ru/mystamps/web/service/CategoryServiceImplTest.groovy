@@ -32,7 +32,7 @@ import ru.mystamps.web.util.SlugUtils
 @SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class CategoryServiceImplTest extends Specification {
 	
-	private static final Integer USER_ID = 123
+	private static final Integer USER_ID = 123 //XXX
 	
 	private final CategoryDao categoryDao = Mock()
 	private final CategoryService service = new CategoryServiceImpl(NOPLogger.NOP_LOGGER, categoryDao)
@@ -41,8 +41,8 @@ class CategoryServiceImplTest extends Specification {
 	
 	def setup() {
 		form = new AddCategoryForm()
-		form.setName('Any category name')
-		form.setNameRu('Любое название категории')
+		form.setName('Any category name') //XXX
+		form.setNameRu('Любое название категории') //XXX
 	}
 	
 	//
@@ -51,7 +51,7 @@ class CategoryServiceImplTest extends Specification {
 	
 	def "add() should throw exception when dto is null"() {
 		when:
-			service.add(null, USER_ID)
+			service.add(null, USER_ID) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -60,7 +60,7 @@ class CategoryServiceImplTest extends Specification {
 		given:
 			form.setName(null)
 		when:
-			service.add(form, USER_ID)
+			service.add(form, USER_ID) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -74,15 +74,15 @@ class CategoryServiceImplTest extends Specification {
 	
 	def "add() should call dao"() {
 		given:
-			Integer expectedId = 10
+			Integer expectedId = 10 //XXX
 		and:
-			form.setName('Example Category')
+			form.setName('Example Category') //XXX
 		and:
-			String expectedSlug = 'example-category'
+			String expectedSlug = 'example-category' //XXX
 		and:
 			categoryDao.add(_ as AddCategoryDbDto) >> expectedId
 		when:
-			String actualSlug = service.add(form, USER_ID)
+			String actualSlug = service.add(form, USER_ID) //XXX
 		then:
 			actualSlug == expectedSlug
 	}
@@ -91,7 +91,7 @@ class CategoryServiceImplTest extends Specification {
 		given:
 			form.setName(null)
 		when:
-			service.add(form, USER_ID)
+			service.add(form, USER_ID) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -105,20 +105,20 @@ class CategoryServiceImplTest extends Specification {
 		and:
 			form.setName(name)
 		when:
-			service.add(form, USER_ID)
+			service.add(form, USER_ID) //XXX
 		then:
 			1 * categoryDao.add({ AddCategoryDbDto category ->
 				assert category?.slug == slug
 				return true
-			}) >> 40
+			}) >> 40 //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "add() should pass values to dao"() {
 		given:
-			Integer expectedUserId = 10
-			String expectedEnglishName = 'Animals'
-			String expectedRussianName = 'Животные'
+			Integer expectedUserId = 10 //XXX
+			String expectedEnglishName = 'Animals' //XXX
+			String expectedRussianName = 'Животные' //XXX
 		and:
 			form.setName(expectedEnglishName)
 			form.setNameRu(expectedRussianName)
@@ -133,7 +133,7 @@ class CategoryServiceImplTest extends Specification {
 				assert DateUtils.roughlyEqual(category?.createdAt, new Date())
 				assert DateUtils.roughlyEqual(category?.updatedAt, new Date())
 				return true
-			}) >> 70
+			}) >> 70 //XXX
 	}
 	
 	//
@@ -142,15 +142,15 @@ class CategoryServiceImplTest extends Specification {
 	
 	def "findAllAsLinkEntities(String) should call dao"() {
 		given:
-			LinkEntityDto category1 = new LinkEntityDto(1, 'first-category', 'First Category')
+			LinkEntityDto category1 = new LinkEntityDto(1/*XXX*/, 'first-category', 'First Category') //XXX
 		and:
-			LinkEntityDto category2 = new LinkEntityDto(2, 'second-category', 'Second Category')
+			LinkEntityDto category2 = new LinkEntityDto(2/*XXX*/, 'second-category', 'Second Category') //XXX
 		and:
 			List<LinkEntityDto> expectedCategories = [ category1, category2 ]
 		and:
 			categoryDao.findAllAsLinkEntities(_ as String) >> expectedCategories
 		when:
-			List<LinkEntityDto> resultCategories = service.findAllAsLinkEntities('fr')
+			List<LinkEntityDto> resultCategories = service.findAllAsLinkEntities('fr') //XXX
 		then:
 			resultCategories == expectedCategories
 	}
@@ -178,7 +178,7 @@ class CategoryServiceImplTest extends Specification {
 	@Unroll
 	def "findOneAsLinkEntity() should throw exception when category slug is '#slug'"(String slug) {
 		when:
-			service.findOneAsLinkEntity(slug, 'ru')
+			service.findOneAsLinkEntity(slug, 'ru') //XXX
 		then:
 			thrown IllegalArgumentException
 		where:
@@ -191,9 +191,9 @@ class CategoryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "findOneAsLinkEntity() should pass arguments to dao"() {
 		given:
-			String expectedSlug = 'people'
+			String expectedSlug = 'people' //XXX
 		and:
-			String expectedLang = 'fr'
+			String expectedLang = 'fr' //XXX
 		and:
 			LinkEntityDto expectedDto = TestObjects.createLinkEntityDto()
 		when:
@@ -219,7 +219,7 @@ class CategoryServiceImplTest extends Specification {
 	
 	def "countAll() should call dao and returns result"() {
 		given:
-			long expectedResult = 10
+			long expectedResult = 10 //XXX
 		when:
 			long result = service.countAll()
 		then:
@@ -242,14 +242,14 @@ class CategoryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "countCategoriesOf() should pass arguments to dao"() {
 		given:
-			Integer expectedCollectionId = 10
+			Integer expectedCollectionId = 10 //XXX
 		when:
 			service.countCategoriesOf(expectedCollectionId)
 		then:
 			1 * categoryDao.countCategoriesOfCollection({ Integer collectionId ->
 				assert expectedCollectionId == collectionId
 				return true
-			}) >> 0L
+			}) >> 0L //XXX
 	}
 	
 	//
@@ -265,11 +265,11 @@ class CategoryServiceImplTest extends Specification {
 	
 	def "countBySlug() should call dao"() {
 		given:
-			categoryDao.countBySlug(_ as String) >> 3L
+			categoryDao.countBySlug(_ as String) >> 3L //XXX
 		when:
-			long result = service.countBySlug('any-slug')
+			long result = service.countBySlug('any-slug') //XXX
 		then:
-			result == 3L
+			result == 3L //XXX
 	}
 	
 	//
@@ -285,11 +285,11 @@ class CategoryServiceImplTest extends Specification {
 	
 	def "countByName() should call dao"() {
 		given:
-			categoryDao.countByName(_ as String) >> 2L
+			categoryDao.countByName(_ as String) >> 2L //XXX
 		when:
-			long result = service.countByName('Any name here')
+			long result = service.countByName('Any name here') //XXX
 		then:
-			result == 2L
+			result == 2L //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
@@ -316,11 +316,11 @@ class CategoryServiceImplTest extends Specification {
 	
 	def "countByNameRu() should call dao"() {
 		given:
-			categoryDao.countByNameRu(_ as String) >> 2L
+			categoryDao.countByNameRu(_ as String) >> 2L //XXX
 		when:
 			long result = service.countByNameRu('Any name here')
 		then:
-			result == 2L
+			result == 2L //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
@@ -348,9 +348,9 @@ class CategoryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "countAddedSince() should invoke dao, pass argument and return result from dao"() {
 		given:
-			Date expectedDate = new Date()
+			Date expectedDate = new Date() //XXX
 		and:
-			long expectedResult = 33
+			long expectedResult = 33 //XXX
 		when:
 			long result = service.countAddedSince(expectedDate)
 		then:
@@ -376,9 +376,9 @@ class CategoryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "countUntranslatedNamesSince() should invoke dao, pass argument and return result from dao"() {
 		given:
-			Date expectedDate = new Date()
+			Date expectedDate = new Date() //XXX
 		and:
-			long expectedResult = 17
+			long expectedResult = 17 //XXX
 		when:
 			long result = service.countUntranslatedNamesSince(expectedDate)
 		then:
@@ -396,7 +396,7 @@ class CategoryServiceImplTest extends Specification {
 
 	def "getStatisticsOf() should throw exception when collection id is null"() {
 		when:
-			service.getStatisticsOf(null, 'whatever')
+			service.getStatisticsOf(null, 'whatever') //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -404,9 +404,9 @@ class CategoryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "getStatisticsOf() should pass arguments to dao"() {
 		given:
-			Integer expectedCollectionId = 15
+			Integer expectedCollectionId = 15 //XXX
 		and:
-			String expectedLang = 'expected'
+			String expectedLang = 'expected' //XXX
 		when:
 			service.getStatisticsOf(expectedCollectionId, expectedLang)
 		then:
