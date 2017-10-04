@@ -32,7 +32,7 @@ import ru.mystamps.web.util.SlugUtils
 @SuppressWarnings(['ClassJavadoc', 'MethodName', 'NoDef', 'NoTabCharacter', 'TrailingWhitespace'])
 class CountryServiceImplTest extends Specification {
 	
-	private static final Integer USER_ID = 321
+	private static final Integer USER_ID = 321 //XXX
 	
 	private final CountryDao countryDao = Mock()
 	private final CountryService service = new CountryServiceImpl(NOPLogger.NOP_LOGGER, countryDao)
@@ -41,8 +41,8 @@ class CountryServiceImplTest extends Specification {
 	
 	def setup() {
 		form = new AddCountryForm()
-		form.setName('Any country name')
-		form.setNameRu('Любое название страны')
+		form.setName('Any country name') //XXX
+		form.setNameRu('Любое название страны') //XXX
 	}
 	
 	//
@@ -51,7 +51,7 @@ class CountryServiceImplTest extends Specification {
 	
 	def "add() should throw exception when dto is null"() {
 		when:
-			service.add(null, USER_ID)
+			service.add(null, USER_ID) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -60,7 +60,7 @@ class CountryServiceImplTest extends Specification {
 		given:
 			form.setName(null)
 		when:
-			service.add(form, USER_ID)
+			service.add(form, USER_ID) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -74,15 +74,15 @@ class CountryServiceImplTest extends Specification {
 	
 	def "add() should call dao"() {
 		given:
-			Integer expectedId = 10
+			Integer expectedId = 10 //XXX
 		and:
-			form.setName('Example Country')
+			form.setName('Example Country') //XXX
 		and:
-			String expectedSlug = 'example-country'
+			String expectedSlug = 'example-country' //XXX
 		and:
 			countryDao.add(_ as AddCountryDbDto) >> expectedId
 		when:
-			String actualSlug = service.add(form, USER_ID)
+			String actualSlug = service.add(form, USER_ID) //XXX
 		then:
 			actualSlug == expectedSlug
 	}
@@ -91,7 +91,7 @@ class CountryServiceImplTest extends Specification {
 		given:
 			form.setName(null)
 		when:
-			service.add(form, USER_ID)
+			service.add(form, USER_ID) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -110,15 +110,15 @@ class CountryServiceImplTest extends Specification {
 			1 * countryDao.add({ AddCountryDbDto country ->
 				assert country?.slug == slug
 				return true
-			}) >> 40
+			}) >> 40 //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "add() should pass values to dao"() {
 		given:
-			Integer expectedUserId = 10
-			String expectedEnglishName = 'Italy'
-			String expectedRussianName = 'Италия'
+			Integer expectedUserId = 10 //XXX
+			String expectedEnglishName = 'Italy' //XXX
+			String expectedRussianName = 'Италия' //XXX
 		and:
 			form.setName(expectedEnglishName)
 			form.setNameRu(expectedRussianName)
@@ -133,7 +133,7 @@ class CountryServiceImplTest extends Specification {
 				assert DateUtils.roughlyEqual(country?.createdAt, new Date())
 				assert DateUtils.roughlyEqual(country?.updatedAt, new Date())
 				return true
-			}) >> 80
+			}) >> 80 //XXX
 	}
 	
 	//
@@ -142,15 +142,15 @@ class CountryServiceImplTest extends Specification {
 	
 	def "findAllAsLinkEntities(String) should call dao"() {
 		given:
-			LinkEntityDto country1 = new LinkEntityDto(1, 'first-country', 'First Country')
+			LinkEntityDto country1 = new LinkEntityDto(1/*XXX*/, 'first-country', 'First Country') //XXX
 		and:
-			LinkEntityDto country2 = new LinkEntityDto(2, 'second-country', 'Second Country')
+			LinkEntityDto country2 = new LinkEntityDto(2/*XXX*/, 'second-country', 'Second Country') //XXX
 		and:
 			List<LinkEntityDto> expectedCountries = [ country1, country2 ]
 		and:
 			countryDao.findAllAsLinkEntities(_ as String) >> expectedCountries
 		when:
-			List<LinkEntityDto> resultCountries = service.findAllAsLinkEntities('de')
+			List<LinkEntityDto> resultCountries = service.findAllAsLinkEntities('de') //XXX
 		then:
 			resultCountries == expectedCountries
 	}
@@ -177,7 +177,7 @@ class CountryServiceImplTest extends Specification {
 	@Unroll
 	def "findOneAsLinkEntity() should throw exception when country slug is '#slug'"(String slug) {
 		when:
-			service.findOneAsLinkEntity(slug, 'ru')
+			service.findOneAsLinkEntity(slug, 'ru') //XXX
 		then:
 			thrown IllegalArgumentException
 		where:
@@ -190,13 +190,14 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "findOneAsLinkEntity() should pass arguments to dao"() {
 		given:
-			String expectedSlug = 'france'
+			String expectedSlug = 'france' //XXX
 		and:
-			String expectedLang = 'fr'
+			String expectedLang = 'fr' //XXX
 		and:
 			LinkEntityDto expectedDto = TestObjects.createLinkEntityDto()
 		when:
-			LinkEntityDto actualDto = service.findOneAsLinkEntity(expectedSlug, 'fr')
+			//LinkEntityDto actualDto = service.findOneAsLinkEntity(expectedSlug, 'fr') //XXX
+			LinkEntityDto actualDto = service.findOneAsLinkEntity(expectedSlug, expectedLang)
 		then:
 			1 * countryDao.findOneAsLinkEntity(
 				{ String countrySlug ->
@@ -218,7 +219,7 @@ class CountryServiceImplTest extends Specification {
 	
 	def "countAll() should call dao and returns result"() {
 		given:
-			long expectedResult = 20
+			long expectedResult = 20 //XXX
 		when:
 			long result = service.countAll()
 		then:
@@ -241,14 +242,14 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "countCountriesOf() should pass arguments to dao"() {
 		given:
-			Integer expectedCollectionId = 9
+			Integer expectedCollectionId = 9 //XXX
 		when:
 			service.countCountriesOf(expectedCollectionId)
 		then:
 			1 * countryDao.countCountriesOfCollection({ Integer collectionId ->
 				assert expectedCollectionId == collectionId
 				return true
-			}) >> 0L
+			}) >> 0L //XXX
 	}
 	
 	//
@@ -264,11 +265,11 @@ class CountryServiceImplTest extends Specification {
 	
 	def "countBySlug() should call dao"() {
 		given:
-			countryDao.countBySlug(_ as String) >> 3L
+			countryDao.countBySlug(_ as String) >> 3L //XXX
 		when:
-			long result = service.countBySlug('any-slug')
+			long result = service.countBySlug('any-slug') //XXX
 		then:
-			result == 3L
+			result == 3L //XXX
 	}
 	
 	//
@@ -284,11 +285,11 @@ class CountryServiceImplTest extends Specification {
 	
 	def "countByName() should call dao"() {
 		given:
-			countryDao.countByName(_ as String) >> 2L
+			countryDao.countByName(_ as String) >> 2L //XX
 		when:
-			long result = service.countByName('Any name here')
+			long result = service.countByName('Any name here') //XXX
 		then:
-			result == 2L
+			result == 2L //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
@@ -315,11 +316,11 @@ class CountryServiceImplTest extends Specification {
 	
 	def "countByNameRu() should call dao"() {
 		given:
-			countryDao.countByNameRu(_ as String) >> 2L
+			countryDao.countByNameRu(_ as String) >> 2L //XXX
 		when:
-			long result = service.countByNameRu('Any name here')
+			long result = service.countByNameRu('Any name here') //XXX
 		then:
-			result == 2L
+			result == 2L //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
@@ -347,9 +348,9 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "countAddedSince() should invoke dao, pass argument and return result from dao"() {
 		given:
-			Date expectedDate = new Date()
+			Date expectedDate = new Date() //XXX
 		and:
-			long expectedResult = 34
+			long expectedResult = 34 //XXX
 		when:
 			long result = service.countAddedSince(expectedDate)
 		then:
@@ -375,9 +376,9 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "countUntranslatedNamesSince() should invoke dao, pass argument and return result from dao"() {
 		given:
-			Date expectedDate = new Date()
+			Date expectedDate = new Date() //XXX
 		and:
-			long expectedResult = 18
+			long expectedResult = 18 //XXX
 		when:
 			long result = service.countUntranslatedNamesSince(expectedDate)
 		then:
@@ -395,7 +396,7 @@ class CountryServiceImplTest extends Specification {
 	
 	def "getStatisticsOf() should throw exception when collection id is null"() {
 		when:
-			service.getStatisticsOf(null, 'whatever')
+			service.getStatisticsOf(null, 'whatever') //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -403,9 +404,9 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def "getStatisticsOf() should pass arguments to dao"() {
 		given:
-			Integer expectedCollectionId = 17
+			Integer expectedCollectionId = 17 //XXX
 		and:
-			String expectedLang = 'expected'
+			String expectedLang = 'expected' //XXX
 		when:
 			service.getStatisticsOf(expectedCollectionId, expectedLang)
 		then:
@@ -435,8 +436,8 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'suggestCountryForUser() should return country of the last created series'() {
 		given:
-			Integer expectedUserId = 18
-			String expectedSlug = 'brazil'
+			Integer expectedUserId = 18 //XXX
+			String expectedSlug = 'brazil' //XXX
 		when:
 			String slug = service.suggestCountryForUser(expectedUserId)
 		then:
@@ -451,8 +452,8 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'suggestCountryForUser() should return popular country from collection'() {
 		given:
-			Integer expectedUserId = 19
-			String expectedSlug = 'mexica'
+			Integer expectedUserId = 19 //XXX
+			String expectedSlug = 'mexica' //XXX
 		when:
 			String slug = service.suggestCountryForUser(expectedUserId)
 		then:
@@ -467,8 +468,8 @@ class CountryServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'suggestCountryForUser() should return a recently created country'() {
 		given:
-			Integer expectedUserId = 21
-			String expectedSlug = 'spain'
+			Integer expectedUserId = 21 //XXX
+			String expectedSlug = 'spain' //XXX
 		when:
 			String slug = service.suggestCountryForUser(expectedUserId)
 		then:
@@ -482,7 +483,7 @@ class CountryServiceImplTest extends Specification {
 
 	def 'suggestCountryForUser() should return null when cannot suggest'() {
 		when:
-			String slug = service.suggestCountryForUser(20)
+			String slug = service.suggestCountryForUser(20) //XXX
 		then:
 			1 * countryDao.findCountryOfLastCreatedSeriesByUser(_ as Integer) >> null
 			1 * countryDao.findPopularCountryInCollection(_ as Integer) >> null
