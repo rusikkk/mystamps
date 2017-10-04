@@ -46,7 +46,7 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings('FactoryMethodName')
 	def 'createCollection() should throw exception when owner id is null'() {
 		when:
-			service.createCollection(null, 'test-owner-login')
+			service.createCollection(null, 'test-owner-login') //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -54,7 +54,7 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings('FactoryMethodName')
 	def 'createCollection() should throw exception when owner login is null'() {
 		when:
-			service.createCollection(123, null)
+			service.createCollection(123, null) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -62,7 +62,7 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings('FactoryMethodName')
 	def 'createCollection() should throw exception when owner login can\'t be converted to slug'() {
 		when:
-			service.createCollection(123, '')
+			service.createCollection(123, '') //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -70,40 +70,40 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'FactoryMethodName', 'UnnecessaryReturnKeyword'])
 	def 'createCollection() should pass owner id to dao'() {
 		given:
-			Integer expectedOwnerId = 123
+			Integer expectedOwnerId = 123 //XXX
 		when:
 			service.createCollection(expectedOwnerId, 'test')
 		then:
 			1 * collectionDao.add({ AddCollectionDbDto collection ->
 				assert collection?.ownerId == expectedOwnerId
 				return true
-			}) >> 100
+			}) >> 100 //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'FactoryMethodName', 'UnnecessaryReturnKeyword'])
 	def 'createCollection() should pass slugified owner login to dao'() {
 		given:
-			String ownerLogin = 'Test User'
+			String ownerLogin = 'Test User' //XXX
 		and:
 			String expectedSlug = SlugUtils.slugify(ownerLogin)
 		when:
-			service.createCollection(123, ownerLogin)
+			service.createCollection(123, ownerLogin) //XXX
 		then:
 			1 * collectionDao.add({ AddCollectionDbDto collection ->
 				assert collection?.slug == expectedSlug
 				return true
-			}) >> 200
+			}) >> 200 //XXX
 	}
 	
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'FactoryMethodName', 'UnnecessaryReturnKeyword'])
 	def 'createCollection() should assign updated at to current date'() {
 		when:
-			service.createCollection(123, 'any-login')
+			service.createCollection(123, 'any-login') //XXX&XXX
 		then:
 			1 * collectionDao.add({ AddCollectionDbDto collection ->
 				assert DateUtils.roughlyEqual(collection?.updatedAt, new Date())
 				return true
-			}) >> 300
+			}) >> 300 //XXX
 	}
 	
 	//
@@ -112,14 +112,14 @@ class CollectionServiceImplTest extends Specification {
 	
 	def 'addToCollection() should throw exception when user id is null'() {
 		when:
-			service.addToCollection(null, 456)
+			service.addToCollection(null, 456) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
 	
 	def 'addToCollection() should throw exception when series id is null'() {
 		when:
-			service.addToCollection(123, null)
+			service.addToCollection(123, null) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -127,8 +127,8 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'addToCollection() should add series to collection and mark it as modified'() {
 		given:
-			Integer expectedUserId = 123
-			Integer expectedSeriesId = 456
+			Integer expectedUserId = 123 //XXX
+			Integer expectedSeriesId = 456 //XXX
 		when:
 			service.addToCollection(expectedUserId, expectedSeriesId)
 		then:
@@ -155,14 +155,14 @@ class CollectionServiceImplTest extends Specification {
 	
 	def 'removeFromCollection() should throw exception when user id is null'() {
 		when:
-			service.removeFromCollection(null, 123)
+			service.removeFromCollection(null, 123) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
 	
 	def 'removeFromCollection() should throw exception when series id is null'() {
 		when:
-			service.removeFromCollection(456, null)
+			service.removeFromCollection(456, null) //XXX
 		then:
 			thrown IllegalArgumentException
 	}
@@ -170,8 +170,8 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'removeFromCollection() should remove series from collection and mark it as modified'() {
 		given:
-			Integer expectedUserId = 123
-			Integer expectedSeriesId = 456
+			Integer expectedUserId = 123 //XXX
+			Integer expectedSeriesId = 456 //XXX
 		when:
 			service.removeFromCollection(expectedUserId, expectedSeriesId)
 		then:
@@ -207,7 +207,7 @@ class CollectionServiceImplTest extends Specification {
 		given:
 			Integer anonymousUserId = null
 		when:
-			boolean serviceResult = service.isSeriesInCollection(anonymousUserId, 456)
+			boolean serviceResult = service.isSeriesInCollection(anonymousUserId, 456) //XXX
 		then:
 			serviceResult == false
 		and:
@@ -217,11 +217,11 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'isSeriesInCollection() should pass arguments to dao'() {
 		given:
-			Integer expectedUserId = 123
+			Integer expectedUserId = 123 //XXX
 		and:
-			Integer expectedSeriesId = 456
+			Integer expectedSeriesId = 456 //XXX
 		and:
-			boolean expectedResult = true
+			boolean expectedResult = true //XXX
 		when:
 			boolean serviceResult = service.isSeriesInCollection(expectedUserId, expectedSeriesId)
 		then:
@@ -242,7 +242,7 @@ class CollectionServiceImplTest extends Specification {
 	
 	def 'countCollectionsOfUsers() should call dao and return result'() {
 		given:
-			long expectedResult = Long.MAX_VALUE
+			long expectedResult = Long.MAX_VALUE //XXX
 		when:
 			long serviceResult = service.countCollectionsOfUsers()
 		then:
@@ -265,8 +265,8 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'countUpdatedSince() should invoke dao, pass argument and return result from dao'() {
 		given:
-			Date expectedDate   = new Date()
-			long expectedResult = 47
+			Date expectedDate   = new Date() //XXX
+			long expectedResult = 47 //XXX
 		when:
 			long result = service.countUpdatedSince(expectedDate)
 		then:
@@ -297,7 +297,7 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'findRecentlyCreated() should pass arguments to dao'() {
 		given:
-			int expectedQuantity = 4
+			int expectedQuantity = 4 //XXX
 		when:
 			service.findRecentlyCreated(expectedQuantity)
 		then:
@@ -321,7 +321,7 @@ class CollectionServiceImplTest extends Specification {
 	@SuppressWarnings(['ClosureAsLastMethodParameter', 'UnnecessaryReturnKeyword'])
 	def 'findBySlug() should invoke dao, pass argument and return result from dao'() {
 		given:
-			String expectedSlug = 'cuba'
+			String expectedSlug = 'cuba' //XXX
 		and:
 			CollectionInfoDto expectedResult = TestObjects.createCollectionInfoDto()
 		when:
