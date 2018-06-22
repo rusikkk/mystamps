@@ -15,6 +15,9 @@ Admin should see a link to a list of import requests
 	[Tags]                    import-series
 	Page Should Contain Link  link=show list of import requests
 
+Should exists link for adding series
+	Page Should Contain Link  link=add stamp series
+
 *** Keywords ***
 Before Test Suite
 	Open Browser                        ${SITE_URL}  ${BROWSER}
